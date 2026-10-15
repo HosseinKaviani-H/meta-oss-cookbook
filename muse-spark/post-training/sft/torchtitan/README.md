@@ -7,12 +7,17 @@ framework, which provides a
 [Muse Spark Open recipe](https://github.com/pytorch/torchtitan/tree/main/torchtitan_recipes/models/muse_spark.py).
 The SFT code is one file, [`sft.py`](sft.py), which you import rather than edit.
 
-What SFT achieves depends almost entirely on the data: which conversations, how
-many, and how clean. So this recipe does not prescribe a dataset or a set of
-hyperparameters. It shows how to plug your own data into TorchTitan's
-Muse Spark Open recipe and get a correct run, using small public datasets as
-stand-ins. Choosing the data, the learning rate, and how long to train is yours
-to tune for your task.
+This recipe is a starting point, not a tuned result. SFT outcomes depend mostly
+on the data -- which conversations, how many, how clean -- so the parts you
+change are the dataset and, with it, the learning rate and number of steps. The
+public datasets here are stand-ins that show the wiring end to end; swap in your
+own and the rest of the recipe stays the same. What to expect to change with
+your data:
+
+- **Size:** small datasets overfit fast. Watch held-out loss and stop when it
+  flattens, even if training loss is still falling.
+- **Mix:** mixing text, image, and audio conversations changes what the model
+  gets better at; the files can be combined freely.
 
 | Section | What it covers |
 | --- | --- |
