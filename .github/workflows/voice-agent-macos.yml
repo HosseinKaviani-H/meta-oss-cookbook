@@ -18,12 +18,12 @@ name: Muse Glimmer macOS
 on:
   pull_request:
     paths:
-      - "recipes/voice-agent-macos/**"
+      - "muse-glimmer/recipes/voice-agent-macos/**"
       - ".github/workflows/voice-agent-macos.yml"
   push:
     branches: [main]
     paths:
-      - "recipes/voice-agent-macos/**"
+      - "muse-glimmer/recipes/voice-agent-macos/**"
       - ".github/workflows/voice-agent-macos.yml"
 
 permissions:
@@ -34,7 +34,7 @@ jobs:
     runs-on: macos-14
     defaults:
       run:
-        working-directory: recipes/voice-agent-macos
+        working-directory: muse-glimmer/recipes/voice-agent-macos
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
@@ -43,7 +43,7 @@ jobs:
       - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e
         with:
           enable-cache: true
-          cache-dependency-glob: recipes/voice-agent-macos/uv.lock
+          cache-dependency-glob: muse-glimmer/recipes/voice-agent-macos/uv.lock
       - name: Sync Python dependencies
         run: uv sync --all-packages --all-groups --frozen
       - name: Check Python lint
@@ -141,14 +141,14 @@ jobs:
     runs-on: macos-14
     defaults:
       run:
-        working-directory: recipes/voice-agent-macos/apps/web
+        working-directory: muse-glimmer/recipes/voice-agent-macos/apps/web
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: "22.12.0"
           cache: npm
-          cache-dependency-path: recipes/voice-agent-macos/apps/web/package-lock.json
+          cache-dependency-path: muse-glimmer/recipes/voice-agent-macos/apps/web/package-lock.json
       - name: Install web dependencies
         run: npm ci
       - name: Lint web app
