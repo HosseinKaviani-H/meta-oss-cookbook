@@ -11,6 +11,7 @@ Run Muse Spark Open on your own infrastructure or call it through a hosted infer
 | [Hugging Face Transformers](transformers.md) | Native Python implementation for research and custom pipelines | BF16, NVFP4 | Python API |
 | [llama.cpp](llama-cpp.md) | Portable inference across Metal, CUDA, ROCm, Vulkan, and CPU | ggml-org GGUFs | OpenAI-compatible HTTP |
 | [Unsloth](unsloth.md) | Local inference on macOS, Windows, Linux, and WSL | Unsloth Dynamic GGUFs | OpenAI- and Anthropic-compatible HTTP |
+| [MLX](mlx.md) | Inference on Apple silicon, across two or four Mac Studio computers | NVFP4 | OpenAI-compatible HTTP |
 
 To call the model without provisioning GPUs, use a [hosted provider](../hosted/README.md).
 
@@ -68,7 +69,7 @@ vllm serve meta-models/Muse-Spark-Open-816B-A42B-NVFP4 \
 **TensorRT-LLM**
 
 ```bash
-# serve_config.yaml: see TensorRT-LLM below
+# serve_config.yaml: see tensorrt-llm.md
 MODEL=meta-models/Muse-Spark-Open-816B-A42B-NVFP4   # or a local checkpoint path
 
 trtllm-serve ${MODEL} \
@@ -81,7 +82,7 @@ trtllm-serve ${MODEL} \
 **Transformers**
 
 ```python
-# Launch with torchrun, which sets WORLD_SIZE; see Hugging Face Transformers below
+# Launch with torchrun, which sets WORLD_SIZE; see transformers.md
 import os
 
 from transformers import AutoModelForMultimodalLM, AutoProcessor, DistributedConfig
@@ -137,6 +138,14 @@ unsloth run \
   --reasoning-effort medium
 ```
 
+**MLX**
+
+```bash
+# hostfile.json lists every Mac; see mlx.md
+mlx.launch --hostfile hostfile.json --backend jaccl --env MLX_METAL_FAST_SYNCH=1 -- \
+  mlx_lm.server --model meta-models/Muse-Spark-Open-816B-A42B-NVFP4 --port 8080
+```
+
 The SGLang and vLLM commands both serve NVFP4 on 4 × B300; the SGLang command adds MegaMoE. Each runtime's page has the other variants.
 
 ## Runtimes
@@ -148,6 +157,7 @@ The SGLang and vLLM commands both serve NVFP4 on 4 × B300; the SGLang command a
 - [Hugging Face Transformers](transformers.md)
 - [llama.cpp](llama-cpp.md)
 - [Unsloth](unsloth.md)
+- [MLX](mlx.md)
 
 ## Next steps
 
