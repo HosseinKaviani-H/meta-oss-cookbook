@@ -1,8 +1,8 @@
-# TitanRL
+# TorchTitan
 
 This recipe shows how to post-train Muse Spark Open with reinforcement learning
-(RL) on a task whose answers can be checked automatically. It uses TitanRL,
-[TorchTitan](https://github.com/pytorch/torchtitan)'s RL stack, which provides a
+(RL) on a task whose answers can be checked automatically. It uses the RL stack
+of [TorchTitan](https://github.com/pytorch/torchtitan) (TitanRL), which provides a
 [Muse Spark Open DAPO-Math recipe](https://github.com/pytorch/torchtitan/blob/main/torchtitan_recipes/rl/dapo_math.py).
 The Muse Spark Open setup -- models, parallelism, trainer, generator -- is taken
 from that recipe unchanged; what you plug in is the task. The code is two files:
@@ -80,7 +80,7 @@ Put this directory on `PYTHONPATH` so TorchTitan can load `rl.py` as a recipe
 module:
 
 ```bash
-export PYTHONPATH=$PYTHONPATH:/path/to/meta-oss-cookbook/muse-spark/post-training/rl/titanrl
+export PYTHONPATH=$PYTHONPATH:/path/to/meta-oss-cookbook/muse-spark/post-training/rl/torchtitan
 ```
 
 ## 3. DAPO-Math
