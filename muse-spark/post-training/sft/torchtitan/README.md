@@ -1,9 +1,7 @@
 # TorchTitan
 
-Muse Spark Open is Meta's open-weight mixture-of-experts model, 816B parameters
-with 42B active, that reads text, images, and audio. This recipe shows how to
-run supervised fine-tuning (SFT) of Muse Spark Open on your own conversations --
-first text, then images and audio. It uses
+This recipe shows how to run supervised fine-tuning (SFT) of Muse Spark Open on
+your own conversations -- first text, then images and audio. It uses
 [TorchTitan](https://github.com/pytorch/torchtitan), PyTorch's native training
 framework, which provides a
 [Muse Spark Open recipe](https://github.com/pytorch/torchtitan/tree/main/torchtitan_recipes/models/muse_spark.py).
