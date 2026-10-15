@@ -1,16 +1,18 @@
 # TorchTitan
 
-Muse Spark Open ships with the recipe it was trained with, in
-[TorchTitan](https://github.com/pytorch/torchtitan/tree/main/torchtitan_recipes/models/muse_spark.py),
-PyTorch's native training framework. This recipe turns it into supervised
-fine-tuning (SFT) on your own conversations -- first text, then images and
-audio. All of it is one file, [`sft.py`](sft.py), which you import rather than
-edit.
+Muse Spark Open is Meta's open-weight mixture-of-experts model, 816B parameters
+with 42B active, that reads text, images, and audio. This recipe shows how to
+run supervised fine-tuning (SFT) of Muse Spark Open on your own conversations --
+first text, then images and audio. It uses
+[TorchTitan](https://github.com/pytorch/torchtitan), PyTorch's native training
+framework, which provides a
+[Muse Spark Open recipe](https://github.com/pytorch/torchtitan/tree/main/torchtitan_recipes/models/muse_spark.py).
+The SFT code is one file, [`sft.py`](sft.py), which you import rather than edit.
 
 What SFT achieves depends almost entirely on the data: which conversations, how
 many, and how clean. So this recipe does not prescribe a dataset or a set of
-hyperparameters. It shows how to plug your own data into Muse Spark Open's
-training recipe and get a correct run, using small public datasets as
+hyperparameters. It shows how to plug your own data into TorchTitan's
+Muse Spark Open recipe and get a correct run, using small public datasets as
 stand-ins. Choosing the data, the learning rate, and how long to train is yours
 to tune for your task.
 
@@ -40,7 +42,7 @@ source -> processor -> packing -> collator -> trainer
           conversation -> tokens + labels; whole conversations per row
 ```
 
-`sft_recipe` takes Muse Spark Open's pretraining recipe and swaps exactly those,
+`sft_recipe` takes TorchTitan's Muse Spark Open recipe and swaps exactly those,
 plus the learning rate if you ask. Everything else is inherited, so any change
 in behavior comes from SFT, not from configuration drift.
 
@@ -130,7 +132,7 @@ Otherwise the date is today's, and the tokens -- and your loss -- change daily.
 ```python
 def my_text_sft() -> Trainer.Config:
     return sft_recipe(
-        _muse_spark_816b_a42b(),              # Muse Spark Open's pretraining recipe
+        _muse_spark_816b_a42b(),              # TorchTitan's Muse Spark Open recipe
         data=("/data/dolly/train.jsonl",),
         processor=ChatProcessor.Config(
             messages_fn=chat_messages,
@@ -155,7 +157,7 @@ export MUSE_SPARK_SFT_DATA="/data/dolly/train.jsonl"
 MODULE=sft CONFIG=muse_spark_816b_a42b_sft ./run_train.sh
 ```
 
-The 816B recipes inherit the pretraining recipe's layout: 128 GPUs, data
+The 816B recipes inherit that recipe's layout: 128 GPUs, data
 parallel 16 x tensor parallel 8, experts split 32 ways. Change
 `config.parallelism` to fit your cluster.
 
