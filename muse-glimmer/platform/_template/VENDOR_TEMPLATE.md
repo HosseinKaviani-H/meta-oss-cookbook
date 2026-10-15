@@ -90,13 +90,13 @@ Measured on <YYYY-MM-DD> with <server + version> and <driver / runtime version>,
 
 ```bash
 # Serve: the full command, with every flag this platform needs. Call out any flag
-# that differs from the reference vLLM command in ../inference-server/vllm.md.
+# that differs from the reference vLLM command in ../../inference-server/vllm.md.
 ```
 
-Say how a reader confirms the deploy works — Muse Glimmer is an agentic model, so "it generates text" isn't a working deploy. Point at the tool-calling check in [`../inference-server/vllm.md`](../inference-server/vllm.md) and note anything platform-specific about the response.
+Say how a reader confirms the deploy works — Muse Glimmer is an agentic model, so "it generates text" isn't a working deploy. Point at the tool-calling check in [`../inference-server/vllm.md`](../../inference-server/vllm.md) and note anything platform-specific about the response.
 
 > [!WARNING]
-> Stop tokens: `eos_token_id = [<\|end_of_text\|>, <\|eot\|>]`. Never stop on `<\|eom\|>` — it marks end-of-*message*, the turn continues, and stopping there reduces parallel tool calling to near zero. Confirm your runtime doesn't override this. Details: [`../inference-server/README.md`](../inference-server/README.md).
+> Stop tokens: `eos_token_id = [<\|end_of_text\|>, <\|eot\|>]`. Never stop on `<\|eom\|>` — it marks end-of-*message*, the turn continues, and stopping there reduces parallel tool calling to near zero. Confirm your runtime doesn't override this. Details: [`../inference-server/README.md`](../../inference-server/README.md).
 
 **Supported precisions**
 
